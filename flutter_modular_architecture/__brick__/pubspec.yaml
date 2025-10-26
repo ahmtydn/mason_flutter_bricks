@@ -8,47 +8,48 @@ environment:
   flutter: ^3.35.0
 
 dependencies:
-
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   
   # State Management
-  flutter_bloc: ^8.1.6
-  equatable: ^2.0.5
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
   
   # Dependency Injection
-  get_it: ^8.0.0
+  get_it: ^8.2.0
   
   # Navigation
   auto_route: ^10.2.0
   
   # Network
-  dio: ^5.7.0
-  connectivity_plus: ^6.0.5
+  dio: ^5.9.0
+  connectivity_plus: ^7.0.0
   
   # UI
-  google_fonts: ^6.2.1
+  google_fonts: ^6.3.2
   
   # Localization
-  intl: ^0.19.0
+  intl: ^0.20.2
   
   # Local Modules
-  gen:
+  module_gen:
     path: module/gen
-  core:
+  module_core:
     path: module/core
-  common:
+  module_common:
     path: module/common
-  widgets:
+  module_widgets:
     path: module/widgets
 
 dev_dependencies:
-  bloc_lint: ^0.3.2
-  bloc_test: ^10.0.0
-  bloc_tools: ^0.1.0-dev.19
   flutter_test:
     sdk: flutter
   very_good_analysis: ^10.0.0
-  build_runner: ^2.4.12
-  auto_route_generator: ^10.2.0
+  bloc_lint: ^0.3.3
+  build_runner: ^2.4.13
+  auto_route_generator: ^10.2.5
 
 flutter:
   generate: true

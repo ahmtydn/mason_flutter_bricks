@@ -8,7 +8,7 @@ cd "$PROJECT_ROOT"
 echo "📍 Working from: $PROJECT_ROOT"
 
 # Define all modules that need build runner
-MODULES=("module/gen" "module/core" "module/common" "module/widgets" "module/feedback")
+MODULES=("module/gen" "module/core" "module/common" "module/widgets")
 
 # Function to clean build cache for all modules and main project
 clean_all_cache() {

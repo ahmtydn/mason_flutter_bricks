@@ -7,7 +7,7 @@ set -u  # Treat unset variables as an error
 readonly APP_NAME="Dependency Manager"
 readonly APP_VERSION="3.0.0"
 readonly SUPPORTED_PLATFORMS=("ios" "android" "macos" "web" "windows" "linux")
-readonly MODULE_REGISTRY=("common" "core" "feedback" "gen" "widgets")
+readonly MODULE_REGISTRY=("common" "core" "gen" "widgets")
 
 # ANSI Color Constants
 readonly COLOR_RED='\033[0;31m'

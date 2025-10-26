@@ -19,9 +19,6 @@ This project uses a modular architecture with the following structure:
 │   ├── core/             # Core utilities (storage, cache)
 │   ├── common/           # Common utilities (network, extensions)
 │   ├── widgets/          # Reusable widgets
-{{#include_feedback_module}}
-│   └── feedback/         # Feedback module
-{{/include_feedback_module}}
 ├── script/               # Build scripts
 └── assets/               # Static assets
 ```
@@ -76,6 +73,15 @@ This project follows a modular architecture with:
 - **Network**: dio + connectivity_plus
 - **Storage**: Local modules (core, gen)
 - **Localization**: Flutter l10n
+
+### 🧪 Sample Feature
+
+The generated project ships with an Isar-backed counter experience under `lib/feature/counter/`. It exercises the recommended layering by:
+
+- Persisting counter steps with metadata through the `module/core` Isar utilities.
+- Streaming updates into a feature-scoped `CounterViewModel` that extends the shared `BaseCubit`.
+- Demonstrating theming controls via a reusable `AppButton` from `module/widgets`.
+- Wiring navigation with Auto Route using `AppRouter` as the single source of truth.
 
 ### 🔄 Code Generation
 

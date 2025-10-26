@@ -1,0 +1,19 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Flutter Modüler Mimari",
+  "counterScreenTitle": "Sayaç",
+  "counterIncrementTooltip": "Arttır",
+  "counterDescription": "Butona bu kadar kez bastınız:",
+  "counterLastRecordedLabel": "Son Kayıt",
+  "counterManualIncrementNote": "Manuel arttırma",
+  "counterErrorMessage": "Veritabanı başlatılamadı: {error}",
+  "@counterErrorMessage": {
+    "description": "Veritabanı başlatılamadığında gösterilir.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "counterNoHistory": "Henüz sayaç geçmişi yok"
+}

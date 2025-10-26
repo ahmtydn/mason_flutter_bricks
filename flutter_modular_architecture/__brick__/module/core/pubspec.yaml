@@ -1,0 +1,18 @@
+name: module_core
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+  flutter: ^3.35.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^9.2.2
+  isar_plus: ^1.1.2
+  isar_plus_flutter_libs: ^1.1.2
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

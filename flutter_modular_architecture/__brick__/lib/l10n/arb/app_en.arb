@@ -1,0 +1,19 @@
+{
+  "@@locale": "en",
+  "appTitle": "Flutter Modular Architecture",
+  "counterScreenTitle": "Counter",
+  "counterIncrementTooltip": "Increment",
+  "counterDescription": "You have pushed the button this many times:",
+  "counterLastRecordedLabel": "Last Recorded",
+  "counterManualIncrementNote": "Manual increment",
+  "counterErrorMessage": "Failed to initialize database: {error}",
+  "@counterErrorMessage": {
+    "description": "Displayed when database initialization fails.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "counterNoHistory": "No counter history yet"
+}
