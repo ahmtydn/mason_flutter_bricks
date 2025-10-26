@@ -1,3 +1,9 @@
+# 0.1.0+2
+
+- Fixed platforms parameter handling in post_gen hook
+- Added support for comma-separated platforms in CLI mode (e.g., `--platforms android,ios,web`)
+- Improved compatibility between interactive and CLI modes
+
 # 0.1.0+1
 
 - Initial release

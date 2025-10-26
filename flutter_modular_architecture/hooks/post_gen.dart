@@ -6,7 +6,12 @@ Future<void> run(HookContext context) async {
   final logger = context.logger;
   final projectName = context.vars['project_name'] as String;
   final organizationName = context.vars['organization_name'] as String;
-  final platforms = context.vars['platforms'] as List;
+
+  // Handle platforms as either List (interactive mode) or String (CLI mode)
+  final platformsVar = context.vars['platforms'];
+  final platforms = platformsVar is List
+      ? platformsVar
+      : (platformsVar as String).split(',').map((e) => e.trim()).toList();
 
   _logProjectSetupInfo(logger, projectName, organizationName, platforms);
 
