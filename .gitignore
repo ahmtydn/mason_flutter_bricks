@@ -1,0 +1,5 @@
+templates
+generated
+.mason
+.packages
+.dart_tool

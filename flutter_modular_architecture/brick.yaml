@@ -1,0 +1,41 @@
+name: flutter_modular_architecture
+description: Complete modular Flutter architecture with platform selection support
+version: 0.1.0+1
+
+repository: https://github.com/ahmtydn/mason_flutter_bricks
+
+environment:
+  mason: "^0.1.1"
+
+vars:
+  project_name:
+    type: string
+    description: Project name (will be converted to snake_case)
+    prompt: What is your project name?
+  
+  description:
+    type: string
+    description: Project description
+    prompt: What is your project description?
+    default: A new Flutter modular architecture project
+  
+  organization_name:
+    type: string
+    description: Organization domain (e.g. com.example)
+    prompt: What is your organization domain?
+    default: com.example
+  
+  platforms:
+    type: array
+    description: Target platforms for the project
+    prompt: Which platforms do you want to support? (comma-separated)
+    defaults:
+      - android
+      - ios
+    values:
+      - android
+      - ios
+      - web
+      - macos
+      - windows
+      - linux
