@@ -21,7 +21,11 @@ dependencies:
   get_it: ^8.2.0
   
   # Navigation
-  auto_route: ^10.2.0
+  auto_route:
+    git:
+      url: https://github.com/ahmtydn/auto_route_library.git
+      ref: master
+      path: auto_route
   
   # Network
   dio: ^5.9.0
@@ -47,18 +51,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   very_good_analysis: ^10.0.0
-  bloc_lint: ^0.3.3
   build_runner: ^2.4.13
-  auto_route_generator: ^10.2.5
+  auto_route_generator:
+    git:
+      url: https://github.com/ahmtydn/auto_route_library.git
+      ref: master
+      path: auto_route_generator
 
 flutter:
   generate: true
   uses-material-design: true
-  assets:
-  - assets/env/
-  - assets/images/
-  - assets/icons/
-  - assets/lottie/
-
-  
 
