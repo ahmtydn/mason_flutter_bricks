@@ -2,14 +2,14 @@ name: module_common
 publish_to: none
 
 environment:
-  sdk: ^3.9.0
-  flutter: ^3.35.0
+  sdk: ^3.10.7
+  flutter: ^3.38.7
 
 dependencies:
   connectivity_plus: ^7.0.0
   dio: ^5.9.0
   equatable: ^2.0.7
-  meta: ^1.16.0
+  meta: ^1.17.0
 
 dev_dependencies:
   test: ^1.25.7
