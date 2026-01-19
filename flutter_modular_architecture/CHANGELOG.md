@@ -1,3 +1,7 @@
+# 0.1.0+6
+
+- **Fix:** Improvements have been made
+
 # 0.1.0+5
 
 - **Fix:** Improvements have been made
