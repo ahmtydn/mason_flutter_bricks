@@ -24,6 +24,10 @@ Future<void> run(HookContext context) async {
     await _enableMacOSNetworkAccess(logger: logger);
   }
 
+  // Set application display name
+  final appName = context.vars['app_name'] as String? ?? projectName;
+  await _setAppDisplayName(logger, appName);
+
   await _runDartFix(logger);
 
   logger.success('🎉 Project setup completed!');
@@ -334,4 +338,135 @@ class _CommandResult {
   final int exitCode;
   final String stdout;
   final String stderr;
+}
+
+Future<void> _setAppDisplayName(Logger logger, String appName) async {
+  final progress = logger.progress('Updating application display name...');
+
+  await _updateAndroidAppName(appName);
+  await _updateIOSAppName(appName);
+  await _updateMacOSAppName(appName);
+  await _updateWebAppName(appName);
+  await _updateWindowsAppName(appName);
+  await _updateLinuxAppName(appName);
+
+  progress.complete('Application display name updated to: $appName');
+}
+
+Future<void> _updateAndroidAppName(String appName) async {
+  final file = File(
+    '${Directory.current.path}/android/app/src/main/AndroidManifest.xml',
+  );
+  if (!file.existsSync()) return;
+
+  try {
+    var content = await file.readAsString();
+    // Replace android:label="android" or similar with the new name
+    // The regex handles the potential attribute variations better
+    content = content.replaceAll(
+      RegExp(r'android:label="[^"]*"'),
+      'android:label="$appName"',
+    );
+    await file.writeAsString(content);
+  } catch (_) {}
+}
+
+Future<void> _updateIOSAppName(String appName) async {
+  final file = File('${Directory.current.path}/ios/Runner/Info.plist');
+  if (!file.existsSync()) return;
+
+  try {
+    var content = await file.readAsString();
+    // Update CFBundleDisplayName
+    // If it exists, replace the value. If not, insert it.
+    if (content.contains('<key>CFBundleDisplayName</key>')) {
+      content = content.replaceAllMapped(
+        RegExp(
+          r'(<key>CFBundleDisplayName</key>\s*<string>)(.*?)(</string>)',
+          multiLine: true,
+          dotAll: true,
+        ),
+        (match) => '${match.group(1)}$appName${match.group(3)}',
+      );
+    } else {
+      // Insert it after CFBundleName
+      content = content.replaceAllMapped(
+        RegExp(
+          r'(<key>CFBundleName</key>\s*<string>)(.*?)(</string>)',
+          multiLine: true,
+          dotAll: true,
+        ),
+        (match) =>
+            '${match.group(0)}\n\t<key>CFBundleDisplayName</key>\n\t<string>$appName</string>',
+      );
+    }
+    await file.writeAsString(content);
+  } catch (_) {}
+}
+
+Future<void> _updateMacOSAppName(String appName) async {
+  final file = File(
+    '${Directory.current.path}/macos/Runner/Configs/AppInfo.xcconfig',
+  );
+  if (!file.existsSync()) return;
+
+  try {
+    var content = await file.readAsString();
+    content = content.replaceAll(
+      RegExp(r'PRODUCT_NAME = .*'),
+      'PRODUCT_NAME = $appName',
+    );
+    await file.writeAsString(content);
+  } catch (_) {}
+}
+
+Future<void> _updateWebAppName(String appName) async {
+  final file = File('${Directory.current.path}/web/index.html');
+  if (!file.existsSync()) return;
+
+  try {
+    var content = await file.readAsString();
+
+    // Update title
+    content = content.replaceAll(
+      RegExp(r'<title>(.*?)</title>'),
+      '<title>$appName</title>',
+    );
+
+    // Update apple-mobile-web-app-title
+    content = content.replaceAll(
+      RegExp(r'<meta name="apple-mobile-web-app-title" content="(.*?)">'),
+      '<meta name="apple-mobile-web-app-title" content="$appName">',
+    );
+
+    await file.writeAsString(content);
+  } catch (_) {}
+}
+
+Future<void> _updateWindowsAppName(String appName) async {
+  final file = File('${Directory.current.path}/windows/runner/main.cpp');
+  if (!file.existsSync()) return;
+
+  try {
+    var content = await file.readAsString();
+    content = content.replaceAll(
+      RegExp(r'window.Create\(L"[^"]*",'),
+      'window.Create(L"$appName",',
+    );
+    await file.writeAsString(content);
+  } catch (_) {}
+}
+
+Future<void> _updateLinuxAppName(String appName) async {
+  final file = File('${Directory.current.path}/linux/my_application.cc');
+  if (!file.existsSync()) return;
+
+  try {
+    var content = await file.readAsString();
+    content = content.replaceAll(
+      RegExp(r'gtk_window_set_title\(window, "[^"]*"\);'),
+      'gtk_window_set_title(window, "$appName");',
+    );
+    await file.writeAsString(content);
+  } catch (_) {}
 }

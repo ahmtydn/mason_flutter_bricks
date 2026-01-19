@@ -1,6 +1,6 @@
 name: flutter_modular_architecture
 description: Complete modular Flutter architecture with platform selection support
-version: 0.1.0+7
+version: 0.1.0+8
 
 repository: https://github.com/ahmtydn/mason_flutter_bricks
 
@@ -12,6 +12,12 @@ vars:
     type: string
     description: Project name (will be converted to snake_case)
     prompt: What is your project name?
+
+  app_name:
+    type: string
+    description: Application display name (e.g. My Awesome App)
+    prompt: What is your application display name?
+    default: My Awesome App
   
   description:
     type: string
