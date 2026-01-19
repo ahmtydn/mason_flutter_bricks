@@ -1,4 +1,3 @@
-import 'package:isar_plus/isar_plus.dart';
 import 'package:module_core/module_core.dart';
 import 'package:module_gen/module_gen.dart';
 import 'package:{{project_name.snakeCase()}}/product/cache/counter_cache.dart';
