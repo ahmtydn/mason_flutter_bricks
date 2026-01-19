@@ -1,6 +1,10 @@
+# 0.1.0+4
+
+- **Fix:** Update `isar_plus` dependency version in `module_core` and remove from `module_gen`
+
 # 0.1.0+3
 
-- **Refactor:** Refactored localization structure — removed old files and added `AppLocalizationService`.
+- **Refactor:** Refactored localization structure — removed old files and added `AppLocalizationService`. 
 - **Fix:** Updated localization references and paths.
 - **Refactor:** Removed asset synchronization logic from module generation.
 - **Chore:** Removed unused environment files and updated `pubspec.yaml` for asset management.
