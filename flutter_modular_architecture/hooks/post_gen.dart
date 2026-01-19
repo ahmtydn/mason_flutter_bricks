@@ -24,6 +24,8 @@ Future<void> run(HookContext context) async {
     await _enableMacOSNetworkAccess(logger: logger);
   }
 
+  await _runDartFix(logger);
+
   logger.success('🎉 Project setup completed!');
 }
 
@@ -73,9 +75,9 @@ Future<void> _createPlatform({
   ], workingDirectory: Directory.current.path);
 
   if (result.success) {
-    progress.complete('✅ $platform platform created');
+    progress.complete('$platform platform created');
   } else {
-    progress.fail('❌ Failed to create $platform platform');
+    progress.fail('Failed to create $platform platform');
     _logCommandError(logger, result);
   }
 }
@@ -88,9 +90,9 @@ Future<void> _generateLocalizations(Logger logger) async {
   ], workingDirectory: Directory.current.path);
 
   if (result.success) {
-    progress.complete('✅ Localization generated');
+    progress.complete('Localization generated');
   } else {
-    progress.fail('❌ Failed to run flutter gen-l10n');
+    progress.fail('Failed to run flutter gen-l10n');
     _logCommandError(logger, result);
   }
 }
@@ -143,10 +145,10 @@ Future<bool> _runPubGet(
   ], workingDirectory: directory.path);
 
   if (result.success) {
-    progress.complete('✅ flutter pub get finished for $targetName');
+    progress.complete('flutter pub get finished for $targetName');
     return true;
   } else {
-    progress.fail('❌ flutter pub get failed for $targetName');
+    progress.fail('flutter pub get failed for $targetName');
     _logCommandError(logger, result, context: 'flutter pub get ($targetName)');
     return false;
   }
@@ -168,14 +170,30 @@ Future<void> _runCodeGeneration(
   ], workingDirectory: directory.path);
 
   if (result.success) {
-    progress.complete('✅ build_runner finished for $targetName');
+    progress.complete('build_runner finished for $targetName');
   } else {
-    progress.fail('❌ build_runner failed for $targetName');
+    progress.fail('build_runner failed for $targetName');
     _logCommandError(
       logger,
       result,
       context: 'flutter pub run build_runner build ($targetName)',
     );
+  }
+}
+
+Future<void> _runDartFix(Logger logger) async {
+  final progress = logger.progress('Running dart fix --apply');
+
+  final result = await _executeDartCommand([
+    'fix',
+    '--apply',
+  ], workingDirectory: Directory.current.path);
+
+  if (result.success) {
+    progress.complete('dart fix --apply completed');
+  } else {
+    progress.fail('dart fix --apply failed');
+    _logCommandError(logger, result, context: 'dart fix --apply');
   }
 }
 
@@ -186,6 +204,33 @@ Future<_CommandResult> _executeFlutterCommand(
   try {
     final result = await Process.run(
       'flutter',
+      arguments,
+      workingDirectory: workingDirectory,
+    );
+
+    return _CommandResult(
+      success: result.exitCode == 0,
+      exitCode: result.exitCode,
+      stdout: result.stdout?.toString() ?? '',
+      stderr: result.stderr?.toString() ?? '',
+    );
+  } catch (e) {
+    return _CommandResult(
+      success: false,
+      exitCode: -1,
+      stdout: '',
+      stderr: e.toString(),
+    );
+  }
+}
+
+Future<_CommandResult> _executeDartCommand(
+  List<String> arguments, {
+  required String workingDirectory,
+}) async {
+  try {
+    final result = await Process.run(
+      'dart',
       arguments,
       workingDirectory: workingDirectory,
     );
@@ -249,7 +294,7 @@ Future<void> _addNetworkEntitlement(Logger logger, String relativePath) async {
 
     final updatedContent = _injectNetworkEntitlement(content);
     await file.writeAsString(updatedContent);
-    logger.info('✅ Added network client entitlement to $relativePath');
+    logger.info('Added network client entitlement to $relativePath');
   } catch (e) {
     logger.warn('Failed to update $relativePath: $e');
   }
