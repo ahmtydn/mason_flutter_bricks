@@ -7,7 +7,8 @@ import 'package:module_widgets/module_widgets.dart';
 import 'package:{{project_name.snakeCase()}}/feature/counter/view/widgets/latest_count_card.dart';
 import 'package:{{project_name.snakeCase()}}/feature/counter/view_model/counter_state.dart';
 import 'package:{{project_name.snakeCase()}}/feature/counter/view_model/counter_view_model.dart';
-import 'package:{{project_name.snakeCase()}}/l10n/gen/app_localizations.dart';
+import 'package:{{project_name.snakeCase()}}/product/l10n/app_localization_service.dart';
+import 'package:{{project_name.snakeCase()}}/product/l10n/gen/app_localizations.dart';
 import 'package:{{project_name.snakeCase()}}/product/service/container/product_container.dart';
 import 'package:{{project_name.snakeCase()}}/product/service/counter/counter_service.dart';
 import 'package:{{project_name.snakeCase()}}/product/state/product_state.dart';
@@ -40,7 +41,7 @@ class _CounterViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizationService.current;
 
     return BlocListener<CounterViewModel, CounterState>(
       listenWhen: (previous, current) =>
@@ -79,7 +80,7 @@ class _CounterBody extends StatelessWidget {
   const _CounterBody({required this.state, required this.l10n});
 
   final CounterState state;
-  final AppLocalizations? l10n;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +90,9 @@ class _CounterBody extends StatelessWidget {
 
     if (state.status == CounterStatus.failure) {
       return AppError(
-        message:
-            l10n?.counterErrorMessage(state.errorMessage ?? 'Unknown error') ??
-            'Failed to initialize database: '
-                '${state.errorMessage ?? 'Unknown error'}',
+        message: l10n.counterErrorMessage(
+          state.errorMessage ?? 'Unknown error',
+        ),
         onRetry: context.read<CounterViewModel>().initialize,
       );
     }
@@ -104,8 +104,7 @@ class _CounterBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              l10n?.counterDescription ??
-                  'You have pushed the button this many times:',
+              l10n.counterDescription,
               style: Theme.of(context).textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
@@ -120,13 +119,13 @@ class _CounterBody extends StatelessWidget {
             const SizedBox(height: 24),
             if (state.lastRecordedAt != null)
               LatestCountCard(
-                title: l10n?.counterLastRecordedLabel ?? 'Last Recorded',
+                title: l10n.counterLastRecordedLabel,
                 timestamp: state.lastRecordedAt!,
                 note: state.lastNote,
               )
             else
               Text(
-                l10n?.counterNoHistory ?? 'No counter history yet',
+                l10n.counterNoHistory,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             const SizedBox(height: 32),
