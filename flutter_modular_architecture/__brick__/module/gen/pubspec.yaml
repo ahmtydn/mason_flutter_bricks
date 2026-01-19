@@ -14,7 +14,6 @@ dependencies:
   lottie: ^3.3.2
   module_core:
     path: ../core
-  isar_plus: ^1.2.1
 
 dev_dependencies:
   build_runner: ^2.4.13
