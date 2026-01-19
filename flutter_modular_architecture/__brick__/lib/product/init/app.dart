@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/gen/app_localizations.dart';
-import 'package:{{project_name.snakeCase()}}/product/init/language/language_initializer.dart';
 import 'package:{{project_name.snakeCase()}}/product/init/theme/app_theme.dart';
+import 'package:{{project_name.snakeCase()}}/product/l10n/gen/app_localizations.dart';
+import 'package:{{project_name.snakeCase()}}/product/l10n/language_initializer.dart';
 import 'package:{{project_name.snakeCase()}}/product/navigation/app_router.dart';
 import 'package:{{project_name.snakeCase()}}/product/service/container/product_container.dart';
 import 'package:{{project_name.snakeCase()}}/product/state/product_state.dart';
@@ -32,6 +33,12 @@ class ProductApp extends StatelessWidget {
             localizationsDelegates: LanguageInitializer.delegates,
             supportedLocales: LanguageInitializer.supportedLocales,
             onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+            builder: (context, child) {
+              final localizations = AppLocalizations.of(context);
+              final locale = Localizations.localeOf(context);
+              AppLocalizationService.initialize(localizations, locale);
+              return child ?? const SizedBox.shrink();
+            },
           );
         },
       ),
