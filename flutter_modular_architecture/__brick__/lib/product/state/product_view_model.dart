@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'base/base_cubit.dart';
-import 'product_state.dart';
+import 'package:{{project_name.snakeCase()}}/product/state/base/base_cubit.dart';
+import 'package:{{project_name.snakeCase()}}/product/state/product_state.dart';
 
 class ProductViewModel extends BaseCubit<ProductState> {
   ProductViewModel() : super(const ProductState());

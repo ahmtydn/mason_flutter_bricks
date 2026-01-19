@@ -5,6 +5,7 @@ class LoggingInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    // Explanation: Log request details for debugging
     // ignore: avoid_print
     print('--> [${options.method}] ${options.uri}');
     handler.next(options);
@@ -15,6 +16,7 @@ class LoggingInterceptor extends Interceptor {
     Response<dynamic> response,
     ResponseInterceptorHandler handler,
   ) {
+    // Explanation: Log response details for debugging
     // ignore: avoid_print
     print('<-- [${response.statusCode}] ${response.requestOptions.uri}');
     handler.next(response);
@@ -22,9 +24,11 @@ class LoggingInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
+    // Explanation: Log error details for debugging
     // ignore: avoid_print
     print(
-      '--x [${err.response?.statusCode}] ${err.requestOptions.uri} ${err.message}',
+      '--x [${err.response?.statusCode}] '
+      '${err.requestOptions.uri} ${err.message}',
     );
     handler.next(err);
   }

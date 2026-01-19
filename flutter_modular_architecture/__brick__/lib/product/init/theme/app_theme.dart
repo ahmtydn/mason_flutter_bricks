@@ -5,7 +5,7 @@ class AppTheme {
   const AppTheme._();
 
   static ThemeData light() {
-    final base = ThemeData.light(useMaterial3: true);
+    final base = ThemeData.light();
     return base.copyWith(
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.cyan,
@@ -19,7 +19,7 @@ class AppTheme {
   }
 
   static ThemeData dark() {
-    final base = ThemeData.dark(useMaterial3: true);
+    final base = ThemeData.dark();
     return base.copyWith(
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.cyan,

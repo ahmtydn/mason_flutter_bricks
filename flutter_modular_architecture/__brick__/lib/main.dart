@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'product/init/app.dart';
-import 'product/init/bootstrap.dart';
+import 'package:{{project_name.snakeCase()}}/product/init/app.dart';
+import 'package:{{project_name.snakeCase()}}/product/init/bootstrap.dart';
 
 Future<void> main() async {
   await ProductBootstrapper.initialize();

@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -111,5 +113,6 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
-# Generated l10n files
-lib/l10n/gen/
+# Envied generated files
+**/app_environment.g.dart
+*.env

@@ -5,6 +5,10 @@ import 'package:meta/meta.dart';
 sealed class Result<T> extends Equatable {
   const Result();
 
+  const factory Result.success(T data) = Success;
+  const factory Result.failure(Object error, {StackTrace? stackTrace}) =
+      Failure;
+
   bool get isSuccess => this is Success<T>;
   bool get isFailure => this is Failure<T>;
 
@@ -22,10 +26,6 @@ sealed class Result<T> extends Equatable {
 
   @override
   List<Object?> get props => [];
-
-  const factory Result.success(T data) = Success;
-  const factory Result.failure(Object error, {StackTrace? stackTrace}) =
-      Failure;
 }
 
 final class Success<T> extends Result<T> {

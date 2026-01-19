@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,10 +22,14 @@ class CounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CounterViewModel(
-        counterService: ProductContainer.read<CounterService>(),
-        dateTimeFormatter: ProductContainer.read<DateTimeFormatter>(),
-      )..initialize(),
+      create: (_) {
+        final viewModel = CounterViewModel(
+          counterService: ProductContainer.read<CounterService>(),
+          dateTimeFormatter: ProductContainer.read<DateTimeFormatter>(),
+        );
+        unawaited(viewModel.initialize());
+        return viewModel;
+      },
       child: const _CounterViewBody(),
     );
   }
@@ -85,7 +91,8 @@ class _CounterBody extends StatelessWidget {
       return AppError(
         message:
             l10n?.counterErrorMessage(state.errorMessage ?? 'Unknown error') ??
-            'Failed to initialize database: ${state.errorMessage ?? 'Unknown error'}',
+            'Failed to initialize database: '
+                '${state.errorMessage ?? 'Unknown error'}',
         onRetry: context.read<CounterViewModel>().initialize,
       );
     }

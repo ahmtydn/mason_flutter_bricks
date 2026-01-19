@@ -1,5 +1,3 @@
-library module_gen;
-
 export 'src/assets/app_assets.dart';
 export 'src/assets/app_icons.dart';
 export 'src/assets/app_lottie.dart';

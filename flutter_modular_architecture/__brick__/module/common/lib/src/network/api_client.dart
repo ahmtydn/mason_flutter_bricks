@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-
-import '../result/result.dart';
+import 'package:module_common/src/result/result.dart';
 
 class ApiClient {
   ApiClient({Dio? dio}) : _dio = dio ?? Dio();

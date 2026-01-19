@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 abstract class BaseCubit<State> extends Cubit<State> {
-  BaseCubit(State initialState) : super(initialState);
+  BaseCubit(super.initialState);
 
   @protected
   void emitSafe(State newState) {

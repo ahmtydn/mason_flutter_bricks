@@ -2,13 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:module_common/module_common.dart';
 import 'package:module_core/module_core.dart';
-
-import '../../cache/counter_cache.dart';
-import '../../navigation/app_router.dart';
-import '../../state/product_view_model.dart';
-import '../../utility/date_time_formatter.dart';
-import '../counter/counter_service.dart';
-import '../network/network_service.dart';
+import 'package:{{project_name.snakeCase()}}/product/cache/counter_cache.dart';
+import 'package:{{project_name.snakeCase()}}/product/navigation/app_router.dart';
+import 'package:{{project_name.snakeCase()}}/product/service/counter/counter_service.dart';
+import 'package:{{project_name.snakeCase()}}/product/service/network/network_service.dart';
+import 'package:{{project_name.snakeCase()}}/product/state/product_view_model.dart';
+import 'package:{{project_name.snakeCase()}}/product/utility/date_time_formatter.dart';
 
 class ProductContainer {
   ProductContainer._();
