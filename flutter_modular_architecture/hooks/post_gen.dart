@@ -111,12 +111,6 @@ Future<void> _buildModuleGenIfExists(Logger logger) async {
     return;
   }
 
-  await _syncProjectAssetsToModule(
-    logger: logger,
-    projectDirectory: Directory.current,
-    moduleDirectory: moduleGenDirectory,
-  );
-
   await _runBuildRunner(
     logger: logger,
     targetName: 'module/gen',
@@ -225,92 +219,6 @@ void _logCommandError(Logger logger, _CommandResult result, {String? context}) {
   if (stderr.isNotEmpty) {
     logger.err('\nStderr:\n$stderr');
   }
-}
-
-Future<void> _syncProjectAssetsToModule({
-  required Logger logger,
-  required Directory projectDirectory,
-  required Directory moduleDirectory,
-}) async {
-  const assetPaths = [
-    'assets/env',
-    'assets/icons',
-    'assets/images',
-    'assets/lottie',
-  ];
-
-  for (final path in assetPaths) {
-    await _copyAssetDirectory(
-      logger: logger,
-      sourcePath: '${projectDirectory.path}/$path',
-      targetPath: '${moduleDirectory.path}/$path',
-    );
-  }
-}
-
-Future<void> _copyAssetDirectory({
-  required Logger logger,
-  required String sourcePath,
-  required String targetPath,
-}) async {
-  final source = Directory(sourcePath);
-  if (!source.existsSync()) {
-    logger.warn('Source asset directory not found: $sourcePath');
-    return;
-  }
-
-  final target = Directory(targetPath);
-  await _removeDirectoryIfExists(logger, target);
-
-  try {
-    await _copyDirectory(source: source, target: target);
-  } catch (e) {
-    logger.err('Failed to copy $sourcePath to $targetPath: $e');
-  }
-}
-
-Future<void> _removeDirectoryIfExists(
-  Logger logger,
-  Directory directory,
-) async {
-  if (!directory.existsSync()) {
-    return;
-  }
-
-  try {
-    directory.deleteSync(recursive: true);
-  } catch (e) {
-    logger.warn('Unable to remove existing directory ${directory.path}: $e');
-  }
-}
-
-Future<void> _copyDirectory({
-  required Directory source,
-  required Directory target,
-}) async {
-  target.createSync(recursive: true);
-
-  await for (final entity in source.list(
-    recursive: false,
-    followLinks: false,
-  )) {
-    final name = _extractEntityName(entity);
-    final targetPath = '${target.path}/$name';
-
-    if (entity is File) {
-      await entity.copy(targetPath);
-    } else if (entity is Directory) {
-      await _copyDirectory(
-        source: Directory(entity.path),
-        target: Directory(targetPath),
-      );
-    }
-  }
-}
-
-String _extractEntityName(FileSystemEntity entity) {
-  final segments = entity.uri.pathSegments;
-  return segments.lastWhere((segment) => segment.isNotEmpty, orElse: () => '');
 }
 
 Future<void> _enableMacOSNetworkAccess({required Logger logger}) async {
