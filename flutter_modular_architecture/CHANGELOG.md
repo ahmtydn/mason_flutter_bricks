@@ -1,3 +1,7 @@
+# 0.1.0+9
+
+- **Feat:** Added `device_preview` support
+
 # 0.1.0+8
 
 - **Feat:** Added `app_name` support for all platforms (Android, iOS, Web, macOS, Windows, Linux)

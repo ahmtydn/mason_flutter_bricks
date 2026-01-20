@@ -38,6 +38,12 @@ dependencies:
   
   # Localization
   intl: ^0.20.2
+
+  # Dev Tools
+  device_preview_plus:
+    git:
+      url: https://github.com/ahmtydn/device_preview_plus.git
+      ref: flutter-3.5.1
   
   # Local Modules
   module_gen:
